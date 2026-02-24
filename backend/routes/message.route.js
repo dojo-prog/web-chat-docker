@@ -4,7 +4,7 @@ import {
   getAllUserMessages,
   getAllUsers,
   sendMessage,
-} from "../controllers/auth.controller.js";
+} from "../controllers/message.controller.js";
 
 const router = e.Router();
 
