@@ -5,8 +5,8 @@ import connectDB from "../lib/db.js";
 import authRouter from "../routes/auth.route.js";
 import messageRouter from "../routes/message.route.js";
 import { errorHandler } from "../middlewares/error.middleware.js";
+import { app, server } from "../lib/socket.js";
 
-const app = e();
 const PORT = ENV.PORT || 5000;
 
 app.use(e.json({ limit: "3mb" }));
@@ -17,7 +17,7 @@ app.use("/api/v1/messages", messageRouter);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server connected to port ${PORT}`);
   connectDB();
 });
