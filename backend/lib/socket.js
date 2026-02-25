@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import e from "express";
 import http from "http";
+import { socketAuthMiddleware } from "../middlewares/socket.auth.middleware.js";
 
 const app = e();
 const server = http.createServer(app);
@@ -11,5 +12,7 @@ const io = new Server(server, {
     credentials: true,
   },
 });
+
+io.use(socketAuthMiddleware);
 
 export { app, server, io };
