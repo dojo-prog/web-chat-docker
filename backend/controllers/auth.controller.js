@@ -156,6 +156,13 @@ export const updateProfilePicture = async (req, res, next) => {
       throw err;
     }
 
+    const existingUser = await findById(userId).select("-password");
+    if (!existingUser) {
+      const err = new Error("User not found");
+      err.statusCode = 400;
+      throw err;
+    }
+
     let imageUrl = "";
     let imagePublicId = "";
 
@@ -170,7 +177,7 @@ export const updateProfilePicture = async (req, res, next) => {
       throw error;
     }
 
-    const updated = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       userId,
       {
         profileImage: {
@@ -180,11 +187,8 @@ export const updateProfilePicture = async (req, res, next) => {
       },
       { returnDocument: "after" },
     );
-    if (!updated) {
-      const err = new Error("User not found");
-      err.statusCode = 400;
-      throw err;
-    }
+
+    cloudinary.uploader.destroy(existingUser.profileImage.publicId);
 
     res.status(200).json({ success: true, message: "Profile picture updated" });
   } catch (error) {
