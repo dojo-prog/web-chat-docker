@@ -93,7 +93,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
 
     set({ loading: true });
     try {
-      const res = await axios.post("/v1/auth/signin", {
+      const res = await axios.post("/v1/auth/login", {
         email: n.email,
         password,
       });
@@ -102,8 +102,11 @@ const useAuthStore = create<AuthState>((set, get) => ({
       set({ user });
       get().connectSocket();
       toast.success("Login successful");
-    } catch (error) {
-      toast.error("Error signing you in. Please try again.");
+    } catch (error: any) {
+      toast.error(
+        error.response.data.message ||
+          "Error signing you in. Please try again.",
+      );
       console.error("Error logging in user: ", error);
     } finally {
       set({ loading: false });
@@ -158,8 +161,11 @@ const useAuthStore = create<AuthState>((set, get) => ({
       set({ user });
       get().connectSocket();
       toast.success("Signup successful");
-    } catch (error) {
-      toast.error("Error signing you up. Please try again.");
+    } catch (error: any) {
+      toast.error(
+        error.response.data.message ||
+          "Error signing you up. Please try again.",
+      );
       console.error("Error in signing up user: ", error);
     } finally {
       set({ loading: false });
@@ -189,8 +195,11 @@ const useAuthStore = create<AuthState>((set, get) => ({
       const { user } = res.data;
       set({ user });
       toast.success("Profile picture updated");
-    } catch (error) {
-      toast.error("Error in updating your profile picture. Please try again.");
+    } catch (error: any) {
+      toast.error(
+        error.response.data.message ||
+          "Error in updating your profile picture. Please try again.",
+      );
       console.error("Error in updating user progile pic: ", error);
     } finally {
       set({ loading: false });
