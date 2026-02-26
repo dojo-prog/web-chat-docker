@@ -15,7 +15,7 @@ router.get("/profile", protectRoute, getAuthenticatedUser);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
-router.patch("/profile-picture", protectRoute, updateProfilePicture);
 router.post("/refresh-token", refreshAccessToken);
+router.patch("/profile-picture/:userId", protectRoute, updateProfilePicture);
 
 export default router;
