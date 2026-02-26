@@ -68,12 +68,17 @@ const useChatStore = create<ChatState>((set, get) => ({
   },
 
   fetchAllUsers: async () => {
+    const { user } = useAuthStore.getState();
     set({ fetchingUsers: true });
     try {
       const res = await axios.get("/v1/messages");
       const { users } = res.data;
 
-      set({ allUsers: users });
+      const u = users.filter(
+        (u: User) => u._id.toString() !== user?._id.toString(),
+      );
+
+      set({ allUsers: u });
     } catch (error) {
       toast.error("Error fetching users list. Please refresh and try again.");
       console.error("Error fetching all users:", error);
@@ -86,9 +91,9 @@ const useChatStore = create<ChatState>((set, get) => ({
     set({ fetchingUsers: true });
     try {
       const res = await axios.get("/v1/messages/contacts");
-      const { users } = res.data;
+      const { contacts } = res.data;
 
-      set({ contacts: users });
+      set({ contacts });
     } catch (error) {
       toast.error(
         "Error in fetching contact list. Please refresh and try again.",
@@ -120,7 +125,10 @@ const useChatStore = create<ChatState>((set, get) => ({
 
     set({ sendingMessage: true });
     try {
-      const res = await axios.post(`/v1/messages/${selectedUser?._id}`);
+      const res = await axios.post(`/v1/messages/${selectedUser?._id}`, {
+        text,
+        image,
+      });
       const { newMessage } = res.data;
 
       set({ messages: messages.concat(newMessage) });
@@ -143,7 +151,7 @@ const useChatStore = create<ChatState>((set, get) => ({
 
     const { socket } = useAuthStore.getState();
 
-    socket?.on("newMessage", (newMessage) => {
+    socket?.on("newMessage", (newMessage: Message) => {
       set((state) => ({
         messages: [...state.messages, newMessage],
       }));
