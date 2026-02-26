@@ -1,9 +1,18 @@
-import { LockIcon, MailIcon, UserCheck2Icon, UserIcon } from "lucide-react";
+import {
+  Loader2Icon,
+  LockIcon,
+  MailIcon,
+  UserCheck2Icon,
+  UserIcon,
+} from "lucide-react";
 import { useForm } from "../hooks/useForm";
 import CustomInput from "../component/CustomInput";
 import { Link } from "react-router-dom";
+import useAuthStore from "../stores/auth.store";
 
 const SignUpPage = () => {
+  const { signup, loading } = useAuthStore();
+
   const { formData, handleChange } = useForm({
     fname: "",
     lname: "",
@@ -11,6 +20,12 @@ const SignUpPage = () => {
     password: "",
     cpassword: "",
   });
+  const { fname, lname, email, password, cpassword } = formData;
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    signup({ fname, lname, email, password, cpassword });
+  };
 
   return (
     <div className="w-full h-full flex">
@@ -25,7 +40,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Form Input */}
-          <form onSubmit={() => {}}>
+          <form onSubmit={handleSubmit}>
             <div className="space-y-4 mb-6">
               <div className="flex space-x-3">
                 <CustomInput
@@ -85,7 +100,11 @@ const SignUpPage = () => {
                   to={"/signin"}
                   className="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-10 cursor-pointer"
                 >
-                  Sign In
+                  {!loading ? (
+                    "Sign In"
+                  ) : (
+                    <Loader2Icon className="h-full text-white animate-spin" />
+                  )}
                 </Link>
               </p>
             </div>
@@ -107,7 +126,10 @@ const SignUpPage = () => {
             </h2>
             <div className="flex items-center space-x-3">
               {["free", "easy setup", "private"].map((i) => (
-                <div className="bg-blue-500/20 px-3 py-1.5 text-xs text-blue-500 font-semibold rounded-full capitalize hover:scale-120 transition-all duration-150">
+                <div
+                  key={i}
+                  className="bg-blue-500/20 px-3 py-1.5 text-xs text-blue-500 font-semibold rounded-full capitalize hover:scale-120 transition-all duration-150"
+                >
                   {i}
                 </div>
               ))}
