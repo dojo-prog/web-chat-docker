@@ -186,15 +186,20 @@ const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   updateProfilePicture: async (image) => {
+    const { user } = get();
+    if (!user) return;
+
     if (!image) {
       return toast.error("Please select an image");
     }
 
     set({ loading: true });
     try {
-      const res = await axios.patch("/v1/auth/profile-picture", { image });
-      const { user } = res.data;
-      set({ user });
+      const res = await axios.patch(`/v1/auth/profile-picture/${user._id}`, {
+        image,
+      });
+      const { user: updated } = res.data;
+      set({ user: updated });
       toast.success("Profile picture updated");
     } catch (error: any) {
       toast.error(
