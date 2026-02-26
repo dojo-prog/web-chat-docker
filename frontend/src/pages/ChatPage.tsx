@@ -1,11 +1,11 @@
 import useAuthStore from "../stores/auth.store";
 
-const HomePage = () => {
+const ChatPage = () => {
   const { logout } = useAuthStore();
 
   return (
     <div>
-      HomePage
+      ChatPage
       <button className="text-white" onClick={logout}>
         Logout
       </button>
@@ -13,4 +13,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ChatPage;

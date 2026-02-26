@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import HomePage from "./pages/HomePage";
+import ChatPage from "./pages/ChatPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import MainLayout from "./layouts/MainLayout";
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route
             index
-            element={user ? <HomePage /> : <Navigate to={"/signin"} />}
+            element={user ? <ChatPage /> : <Navigate to={"/signin"} />}
           />
           <Route
             path="/signin"
