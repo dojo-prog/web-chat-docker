@@ -156,7 +156,7 @@ export const updateProfilePicture = async (req, res, next) => {
       throw err;
     }
 
-    const existingUser = await findById(userId).select("-password");
+    const existingUser = await User.findById(userId).select("-password");
     if (!existingUser) {
       const err = new Error("User not found");
       err.statusCode = 400;
@@ -193,13 +193,11 @@ export const updateProfilePicture = async (req, res, next) => {
 
     cloudinary.uploader.destroy(existingUser.profileImage.publicId);
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Profile picture updated",
-        user: updatedObj,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Profile picture updated",
+      user: updatedObj,
+    });
   } catch (error) {
     next(error);
   }
