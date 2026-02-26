@@ -1,5 +1,4 @@
 import axios from "axios";
-import useAuthStore from "../stores/auth.store";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.PROD ? "/api" : "http://localhost:5000/api",
@@ -42,7 +41,7 @@ axiosInstance.interceptors.response.use(
         resolveQueue();
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        useAuthStore.getState().logout();
+        await axios.post(`${axiosInstance.defaults.baseURL}/v1/auth/logout`);
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
