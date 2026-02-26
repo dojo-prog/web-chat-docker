@@ -14,3 +14,5 @@ A real-time **web chat application** for seamless messaging and communication.
 - **Database:** MongoDB   
 - **Real-time Communication:** Socket.IO / WebSockets  
 - **Containerization:** Docker & Docker Compose 
+
+Inspired by: Codesistency
