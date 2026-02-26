@@ -15,12 +15,12 @@ const SignUpPage = () => {
   return (
     <div className="w-full h-full flex">
       {/* Left Section */}
-      <div className="flex-1 h-full border-r border-gray-800 flex items-center justify-center">
+      <div className="flex-1 h-full border-r border-gray-800 flex items-center justify-center py-5 overflow-auto">
         <div className="w-full space-y-5 px-10">
           {/* Header */}
           <div className="flex flex-col items-center space-y-3">
-            <UserCheck2Icon size={100} color="white" />
-            <h1 className="text-4xl font-bold">Create an Account!</h1>
+            <UserCheck2Icon size={60} color="white" />
+            <h1 className="text-xl font-bold">Create an Account!</h1>
             <p className="text-gray-500 ">Sign up to access chat up</p>
           </div>
 
