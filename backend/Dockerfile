@@ -1,4 +1,4 @@
-FROM node:25-apline
+FROM node:25-alpine
 
 RUN addgroup app && adduser -S -G app app
 
