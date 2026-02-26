@@ -1,4 +1,5 @@
 import e from "express";
+import cors from "cors";
 import ENV from "../lib/env.js";
 import cookieParser from "cookie-parser";
 import connectDB from "../lib/db.js";
@@ -8,6 +9,13 @@ import { errorHandler } from "../middlewares/error.middleware.js";
 import { app, server } from "../lib/socket.js";
 
 const PORT = ENV.PORT || 5000;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 
 app.use(e.json({ limit: "3mb" }));
 app.use(cookieParser());
