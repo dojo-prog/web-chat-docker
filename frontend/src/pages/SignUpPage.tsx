@@ -6,7 +6,7 @@ import {
   UserIcon,
 } from "lucide-react";
 import { useForm } from "../hooks/useForm";
-import CustomInput from "../component/CustomInput";
+import CustomInput from "../components/CustomInput";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/auth.store";
 

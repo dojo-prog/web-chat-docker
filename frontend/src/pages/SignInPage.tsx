@@ -4,7 +4,7 @@ import {
   MailIcon,
   MessageCircleCheckIcon,
 } from "lucide-react";
-import CustomInput from "../component/CustomInput";
+import CustomInput from "../components/CustomInput";
 import { useForm } from "../hooks/useForm";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/auth.store";
