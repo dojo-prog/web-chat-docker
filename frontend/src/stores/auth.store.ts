@@ -59,6 +59,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
       const res = await axios.get("/v1/auth/profile");
       const { user } = res.data;
       set({ user });
+      get().connectSocket();
     } catch (error) {
       console.error("Error authenticating user: ", error);
     } finally {
