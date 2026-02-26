@@ -6,7 +6,7 @@ import { toast, type Id } from "react-toastify";
 import { capitalize } from "../utils/capitalize.ts";
 import { io, type Socket } from "socket.io-client";
 
-interface User {
+export interface User {
   _id: string;
   fname: string;
   lname: string;
