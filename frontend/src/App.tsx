@@ -6,13 +6,16 @@ import SignUpPage from "./pages/SignUpPage";
 import MainLayout from "./layouts/MainLayout";
 import useAuthStore from "./stores/auth.store";
 import { useEffect } from "react";
+import PageLoader from "./components/loaders/PageLoader";
 
 const App = () => {
-  const { checkAuth, user } = useAuthStore();
+  const { checkAuth, checkingAuth, user } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  if (checkingAuth) return <PageLoader />;
 
   return (
     <>
