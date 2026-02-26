@@ -177,7 +177,7 @@ export const updateProfilePicture = async (req, res, next) => {
       throw error;
     }
 
-    await User.findByIdAndUpdate(
+    const updated = await User.findByIdAndUpdate(
       userId,
       {
         profileImage: {
@@ -188,9 +188,18 @@ export const updateProfilePicture = async (req, res, next) => {
       { returnDocument: "after" },
     );
 
+    const updatedObj = updated.toObject();
+    delete updatedObj.password;
+
     cloudinary.uploader.destroy(existingUser.profileImage.publicId);
 
-    res.status(200).json({ success: true, message: "Profile picture updated" });
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Profile picture updated",
+        user: updatedObj,
+      });
   } catch (error) {
     next(error);
   }
