@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 import ChatPage from "./pages/ChatPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -35,7 +35,12 @@ const App = () => {
           />
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        autoClose={1500}
+        newestOnTop={true}
+        theme="dark"
+        transition={Slide}
+      />
     </>
   );
 };
